@@ -2,5 +2,6 @@ services:
   watcher:
     build:
       context: .
+    restart: always
     env_file: .env
     network_mode: host
