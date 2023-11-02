@@ -1,0 +1,3 @@
+unicorn-binance-rest-api==1.10.0
+unicorn-binance-websocket-api==1.46.2
+requests==2.31.0

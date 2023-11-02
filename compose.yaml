@@ -1,0 +1,6 @@
+services:
+  watcher:
+    build:
+      context: .
+    env_file: .env
+    network_mode: host
