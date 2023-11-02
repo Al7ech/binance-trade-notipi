@@ -24,6 +24,7 @@ asset = os.getenv("ASSET")
 symbol = os.getenv("SYMBOL")
 user = os.getenv("USERNAME")
 pw = os.getenv("PASSWORD")
+endpoint = os.getenv("ENDPOINT")
 exchange = "binance.com-futures-testnet" if testnet else "binance.com-futures"
 
 print("Loading balance & position...")
@@ -47,7 +48,7 @@ def callback(data):
                 "title": "Binance trade detection", 
                 "content": f"{symbol[:3]}: {position:.3f}({abs(position-prev_position):+.3f}) @ {price:.2f}\n{asset}: {balance:.2f} ({'▲' if prev_balance < balance else '▼'} {abs(balance-prev_balance):.2f}, {abs(balance/prev_balance-1):.2%})"
             }
-            r = requests.post("localhost:9273", json=data, auth=(user, pw))
+            r = requests.post(endpoint, json=data, auth=(user, pw))
 
             prev_balance = balance
             prev_position = position
