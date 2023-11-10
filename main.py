@@ -31,15 +31,15 @@ print("Loading balance & position...")
 client = BinanceRestApiManager(api_key, api_secret, exchange=exchange)
 
 info = client.futures_account()
-prev_balance = balance = float(get_elem(info['assets'], asset=asset)['walletBalance'])
-prev_position = position = float(get_elem(info['positions'], symbol=symbol)['positionAmt'])
+prev_balance = balance = float(get_elem(info['assets'], asset=asset).get('walletBalance', 0))
+prev_position = position = float(get_elem(info['positions'], symbol=symbol).get('positionAmt', 0))
 
 def callback(data):
     global balance, prev_balance, position, prev_position
     msg = json.loads(data)
     if msg['e'] == "ACCOUNT_UPDATE":
-        balance = float(get_elem(msg['a']['B'], a=asset)['wb'])
-        position = float(get_elem(msg['a']['P'], s=symbol)['pa'])
+        balance = float(get_elem(msg['a']['B'], a=asset).get('wb', 0))
+        position = float(get_elem(msg['a']['P'], s=symbol).get('pa', 0))
 
     if msg['e'] == "ORDER_TRADE_UPDATE":
         if msg['o']['X'] == "FILLED" and msg['o']['s'] == symbol:
