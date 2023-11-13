@@ -38,8 +38,10 @@ def callback(data):
     global balance, prev_balance, position, prev_position
     msg = json.loads(data)
     if msg['e'] == "ACCOUNT_UPDATE":
-        balance = float(get_elem(msg['a']['B'], a=asset).get('wb', 0))
-        position = float(get_elem(msg['a']['P'], s=symbol).get('pa', 0))
+        if balance_info := get_elem(msg['a']['B'], a=asset)
+            balance = float(balance_info.get('wb', 0))
+        if position_info := get_elem(msg['a']['P'], s=symbol)
+            position = float(position_info.get('pa', 0))
 
     if msg['e'] == "ORDER_TRADE_UPDATE":
         if msg['o']['X'] == "FILLED" and msg['o']['s'] == symbol:
