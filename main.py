@@ -48,7 +48,7 @@ def callback(data):
             price = float(msg['o']['ap'])
             data = {
                 "title": "Binance trade detection", 
-                "content": f"{symbol[:3]}: {position:.3f}({abs(position-prev_position):+.3f}) @ {price:.2f}\n{asset}: {balance:.2f} ({'▲' if prev_balance < balance else '▼'} {abs(balance-prev_balance):.2f}, {abs(balance/prev_balance-1):.2%})"
+                "content": f"{symbol[:3]}: {position:.3f}({position-prev_position:+.3f}) @ {price:.2f}\n{asset}: {balance:.2f} ({'▲' if prev_balance < balance else '▼'} {abs(balance-prev_balance):.2f}, {abs(balance/prev_balance-1):.2%})"
             }
             print(data)
             r = requests.post(endpoint, json=data, auth=(user, pw))
