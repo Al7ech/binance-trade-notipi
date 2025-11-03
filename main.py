@@ -57,9 +57,10 @@ def callback(data):
 
         if msg['e'] == "ORDER_TRADE_UPDATE":
             if msg['o']['X'] == "FILLED" and msg['o']['s'] == symbol:
+                prefix = "🟢" if prev_balance < balance else "🔴"
                 price = float(msg['o']['ap'])
                 data = {
-                    "title": "Binance trade detection", 
+                    "title": f"{prefix} Binance trade detection",
                     "content": f"{symbol[:3]}: {position:.3f}({position-prev_position:+.3f}) @ {price:.2f}\n{asset}: {balance:.2f} ({'▲' if prev_balance < balance else '▼'} {abs(balance-prev_balance):.2f}, {abs(balance/prev_balance-1):.2%})"
                 }
                 logger.info(data)

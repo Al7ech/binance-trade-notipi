@@ -2,6 +2,7 @@ services:
   watcher:
     build:
       context: .
+    container_name: binance-trade-notipi
     restart: always
     env_file: .env
     network_mode: host
